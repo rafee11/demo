@@ -55,12 +55,49 @@
             }
         }
     }
+        
+        function matchVoice(){
+            constructor(private speechRecognition: SpeechRecognition) { }
+
+// Check feature available
+SpeechRecognition.isRecognitionAvailable()
+  .then((available: boolean) => alert(available))
+
+// Start the recognition process
+SpeechRecognition.startListening(options)
+  .subscribe(
+    (matches: Array<string>) => alert(matches),
+    (onerror) => console.log('error:', onerror)
+  )
+
+// Stop the recognition process (iOS only)
+SpeechRecognition.stopListening()
+
+// Get the list of supported languages
+SpeechRecognition.getSupportedLanguages()
+  .then(
+    (languages: Array<string>) => alert(languages),
+    (error) => alert(error)
+  )
+
+// Check permission
+SpeechRecognition.hasPermission()
+  .then((hasPermission: boolean) => alert(hasPermission))
+
+// Request permissions
+SpeechRecognition.requestPermission()
+  .then(
+    () => console.log('Granted'),
+    () => console.log('Denied')
+  )
+        }
     </script>
-    <form action="http://www.example.com/search">
+    <form >
         <input type="search" id="q" name="q" size=60>
         <input type="button" value="Click to Speak" onclick="recognition.start()">
+        
     </form>
-    
+    <button onclick="matchVoice()">check voice</button>
     
 </body>
 
